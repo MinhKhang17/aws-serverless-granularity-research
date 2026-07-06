@@ -1,0 +1,13 @@
+﻿{
+  "business_request_id": "br-debug-g2-512",
+  "trace_id": "tr-debug-g2-512",
+  "experiment_id": "EXP-G2-512-DEBUG",
+  "orderId": "order-debug-g2-512",
+  "amount": 199000,
+  "items": [
+    {
+      "productId": "p001",
+      "quantity": 2
+    }
+  ]
+}

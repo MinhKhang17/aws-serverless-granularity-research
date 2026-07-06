@@ -1,0 +1,371 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Granularity Research - G1 and G2 Experiment
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 10
+    Architectures:
+    - arm64
+    Tracing: Active
+    Environment:
+      Variables:
+        GRANULARITY_LEVEL: G1
+        INVOCATION_RATE_PER_HOUR: '0'
+Resources:
+  OrderG1Function128:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g1-128
+      CodeUri: OrderG1Function128
+      Handler: g1-monolithic/handler.handler
+      MemorySize: 128
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g1/order
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G1
+        MemoryConfig: '128'
+    Metadata:
+      SamResourceId: OrderG1Function128
+  OrderG1Function512:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g1-512
+      CodeUri: OrderG1Function512
+      Handler: g1-monolithic/handler.handler
+      MemorySize: 512
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g1/order-512
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G1
+        MemoryConfig: '512'
+    Metadata:
+      SamResourceId: OrderG1Function512
+  OrderG1Function1024:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g1-1024
+      CodeUri: OrderG1Function1024
+      Handler: g1-monolithic/handler.handler
+      MemorySize: 1024
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g1/order-1024
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G1
+        MemoryConfig: '1024'
+    Metadata:
+      SamResourceId: OrderG1Function1024
+  OrderG2InventoryFunction128:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-inventory-128
+      CodeUri: OrderG2InventoryFunction128
+      Handler: g2-inventory/handler.handler
+      MemorySize: 128
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: inventory
+          MEMORY_CONFIG: '128'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: inventory
+        MemoryConfig: '128'
+    Metadata:
+      SamResourceId: OrderG2InventoryFunction128
+  OrderG2PaymentFunction128:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-payment-128
+      CodeUri: OrderG2PaymentFunction128
+      Handler: g2-payment/handler.handler
+      MemorySize: 128
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: payment
+          MEMORY_CONFIG: '128'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: payment
+        MemoryConfig: '128'
+    Metadata:
+      SamResourceId: OrderG2PaymentFunction128
+  OrderG2NotificationFunction128:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-notification-128
+      CodeUri: OrderG2NotificationFunction128
+      Handler: g2-notification/handler.handler
+      MemorySize: 128
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: notification
+          MEMORY_CONFIG: '128'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: notification
+        MemoryConfig: '128'
+    Metadata:
+      SamResourceId: OrderG2NotificationFunction128
+  OrderG2OrchestratorFunction128:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-orchestrator-128
+      CodeUri: OrderG2OrchestratorFunction128
+      Handler: g2-orchestrator/handler.handler
+      MemorySize: 128
+      Policies:
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2InventoryFunction128
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2PaymentFunction128
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2NotificationFunction128
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: orchestrator
+          MEMORY_CONFIG: '128'
+          INVENTORY_FUNCTION_NAME:
+            Ref: OrderG2InventoryFunction128
+          PAYMENT_FUNCTION_NAME:
+            Ref: OrderG2PaymentFunction128
+          NOTIFICATION_FUNCTION_NAME:
+            Ref: OrderG2NotificationFunction128
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g2/order-128
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: orchestrator
+        MemoryConfig: '128'
+    Metadata:
+      SamResourceId: OrderG2OrchestratorFunction128
+  OrderG2InventoryFunction512:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-inventory-512
+      CodeUri: OrderG2InventoryFunction512
+      Handler: g2-inventory/handler.handler
+      MemorySize: 512
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: inventory
+          MEMORY_CONFIG: '512'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: inventory
+        MemoryConfig: '512'
+    Metadata:
+      SamResourceId: OrderG2InventoryFunction512
+  OrderG2PaymentFunction512:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-payment-512
+      CodeUri: OrderG2PaymentFunction512
+      Handler: g2-payment/handler.handler
+      MemorySize: 512
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: payment
+          MEMORY_CONFIG: '512'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: payment
+        MemoryConfig: '512'
+    Metadata:
+      SamResourceId: OrderG2PaymentFunction512
+  OrderG2NotificationFunction512:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-notification-512
+      CodeUri: OrderG2NotificationFunction512
+      Handler: g2-notification/handler.handler
+      MemorySize: 512
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: notification
+          MEMORY_CONFIG: '512'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: notification
+        MemoryConfig: '512'
+    Metadata:
+      SamResourceId: OrderG2NotificationFunction512
+  OrderG2OrchestratorFunction512:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-orchestrator-512
+      CodeUri: OrderG2OrchestratorFunction512
+      Handler: g2-orchestrator/handler.handler
+      MemorySize: 512
+      Policies:
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2InventoryFunction512
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2PaymentFunction512
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2NotificationFunction512
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: orchestrator
+          MEMORY_CONFIG: '512'
+          INVENTORY_FUNCTION_NAME:
+            Ref: OrderG2InventoryFunction512
+          PAYMENT_FUNCTION_NAME:
+            Ref: OrderG2PaymentFunction512
+          NOTIFICATION_FUNCTION_NAME:
+            Ref: OrderG2NotificationFunction512
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g2/order-512
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: orchestrator
+        MemoryConfig: '512'
+    Metadata:
+      SamResourceId: OrderG2OrchestratorFunction512
+  OrderG2InventoryFunction1024:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-inventory-1024
+      CodeUri: OrderG2InventoryFunction1024
+      Handler: g2-inventory/handler.handler
+      MemorySize: 1024
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: inventory
+          MEMORY_CONFIG: '1024'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: inventory
+        MemoryConfig: '1024'
+    Metadata:
+      SamResourceId: OrderG2InventoryFunction1024
+  OrderG2PaymentFunction1024:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-payment-1024
+      CodeUri: OrderG2PaymentFunction1024
+      Handler: g2-payment/handler.handler
+      MemorySize: 1024
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: payment
+          MEMORY_CONFIG: '1024'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: payment
+        MemoryConfig: '1024'
+    Metadata:
+      SamResourceId: OrderG2PaymentFunction1024
+  OrderG2NotificationFunction1024:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-notification-1024
+      CodeUri: OrderG2NotificationFunction1024
+      Handler: g2-notification/handler.handler
+      MemorySize: 1024
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: notification
+          MEMORY_CONFIG: '1024'
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: notification
+        MemoryConfig: '1024'
+    Metadata:
+      SamResourceId: OrderG2NotificationFunction1024
+  OrderG2OrchestratorFunction1024:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g2-orchestrator-1024
+      CodeUri: OrderG2OrchestratorFunction1024
+      Handler: g2-orchestrator/handler.handler
+      MemorySize: 1024
+      Policies:
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2InventoryFunction1024
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2PaymentFunction1024
+      - LambdaInvokePolicy:
+          FunctionName:
+            Ref: OrderG2NotificationFunction1024
+      Environment:
+        Variables:
+          GRANULARITY_LEVEL: G2
+          SERVICE_NAME: orchestrator
+          MEMORY_CONFIG: '1024'
+          INVENTORY_FUNCTION_NAME:
+            Ref: OrderG2InventoryFunction1024
+          PAYMENT_FUNCTION_NAME:
+            Ref: OrderG2PaymentFunction1024
+          NOTIFICATION_FUNCTION_NAME:
+            Ref: OrderG2NotificationFunction1024
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g2/order-1024
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G2
+        Service: orchestrator
+        MemoryConfig: '1024'
+    Metadata:
+      SamResourceId: OrderG2OrchestratorFunction1024
+Outputs:
+  ApiUrl:
+    Description: HTTP API endpoint
+    Value:
+      Fn::Sub: https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com

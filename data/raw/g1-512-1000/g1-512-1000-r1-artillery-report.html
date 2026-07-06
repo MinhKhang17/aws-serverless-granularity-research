@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artillery Report - g1-512-1000-r1</title>
+  <style>
+    :root { --bg:#f6f8fb; --card:#ffffff; --text:#0f172a; --muted:#64748b; --line:#e2e8f0; --blue:#2563eb; --green:#16a34a; --amber:#d97706; --red:#dc2626; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: linear-gradient(135deg,#0f172a,#1d4ed8); color:white; border-radius: 24px; padding: 32px; box-shadow: 0 22px 44px rgba(15,23,42,.18); }
+    .eyebrow { text-transform: uppercase; letter-spacing:.12em; font-size: 12px; opacity:.8; font-weight:700; }
+    h1 { margin: 8px 0 10px; font-size: clamp(28px,4vw,44px); line-height:1.05; }
+    .hero p { margin: 0; opacity:.9; max-width:760px; }
+    .pillrow { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    .pill { border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.12); padding:8px 12px; border-radius:999px; font-size:14px; }
+    .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; margin-top:18px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow: 0 10px 28px rgba(15,23,42,.06); }
+    .kpi .label { color:var(--muted); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .kpi .value { font-size:30px; font-weight:800; margin-top:8px; }
+    .kpi .sub { color:var(--muted); margin-top:4px; font-size:13px; }
+    .pass { color:var(--green); } .warn { color:var(--amber); }
+    .section { margin-top:22px; }
+    h2 { margin:0 0 14px; font-size:22px; }
+    table { width:100%; border-collapse:collapse; overflow:hidden; border-radius:14px; }
+    th, td { padding:12px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:14px; }
+    th { background:#f8fafc; color:#334155; font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+    tr:last-child td { border-bottom:none; }
+    .muted { color:var(--muted); } .center { text-align:center; }
+    .note { border-left:4px solid var(--blue); background:#eff6ff; padding:16px 18px; border-radius:14px; color:#1e3a8a; }
+    .chartbox { overflow-x:auto; }
+    footer { margin-top:24px; color:var(--muted); font-size:12px; text-align:center; }
+    @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .hero { padding:24px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">AWS Serverless Granularity Research</div>
+      <h1>Artillery Load Test Report</h1>
+      <p>Báo cáo HTML tổng hợp kết quả benchmark cho cấu hình <strong>512 MB</strong>, endpoint <strong>/g1/order-512</strong>, tải mục tiêu <strong>1000 requests/hour</strong>.</p>
+      <div class="pillrow">
+        <span class="pill">Scenario: g1-512-1000-r1</span>
+        <span class="pill">Start: 2026-07-01 04:54:31</span>
+        <span class="pill">End: 2026-07-01 05:57:31</span>
+        <span class="pill">Status: <strong>PASS</strong></span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card kpi"><div class="label">Success Rate</div><div class="value pass">100.00%</div><div class="sub">1180/1180 HTTP 200</div></div>
+      <div class="card kpi"><div class="label">Mean Latency</div><div class="value">476.5 ms</div><div class="sub">Average response time</div></div>
+      <div class="card kpi"><div class="label">p95 Latency</div><div class="value">487.9 ms</div><div class="sub">95th percentile</div></div>
+      <div class="card kpi"><div class="label">Failed VUsers</div><div class="value pass">0</div><div class="sub">Created: 1180</div></div>
+    </section>
+
+    <section class="section card">
+      <h2>Executive Summary</h2>
+      <div class="note"><strong>PASS.</strong> Kết quả ổn định: toàn bộ request nhận HTTP 200 và không có virtual user failed. Response time trung bình là <strong>476.5 ms</strong>, p95 là <strong>487.9 ms</strong>, và p99 là <strong>550.1 ms</strong>.</div>
+    </section>
+
+    <section class="section card">
+      <h2>Response Time Trend</h2>
+      <div class="chartbox"><svg viewBox="0 0 980 260" role="img" aria-label="Mean response time over test period">
+      <rect x="0" y="0" width="980" height="260" fill="white" rx="14"/>
+      <line x1="36" y1="36.0" x2="944" y2="36.0" stroke="#e5e7eb" stroke-width="1"/><text x="8" y="40.0" font-size="11" fill="#64748b">754</text><line x1="36" y1="83.0" x2="944" y2="83.0" stroke="#e5e7eb" stroke-width="1"/><text x="8" y="87.0" font-size="11" fill="#64748b">682</text><line x1="36" y1="130.0" x2="944" y2="130.0" stroke="#e5e7eb" stroke-width="1"/><text x="8" y="134.0" font-size="11" fill="#64748b">609</text><line x1="36" y1="177.0" x2="944" y2="177.0" stroke="#e5e7eb" stroke-width="1"/><text x="8" y="181.0" font-size="11" fill="#64748b">536</text><line x1="36" y1="224.0" x2="944" y2="224.0" stroke="#e5e7eb" stroke-width="1"/><text x="8" y="228.0" font-size="11" fill="#64748b">464</text>
+      <path d="M36.0,175.9 L40.8,214.6 L45.6,214.9 L50.4,215.4 L55.2,210.5 L60.0,216.7 L64.8,218.0 L69.6,218.3 L74.4,218.8 L79.2,216.7 L84.0,210.2 L88.8,216.4 L93.7,211.7 L98.5,216.9 L103.3,214.1 L108.1,216.5 L112.9,220.3 L117.7,213.7 L122.5,220.9 L127.3,165.0 L132.1,36.0 L136.9,217.3 L141.7,214.3 L146.5,211.5 L151.3,218.6 L156.1,215.4 L160.9,218.2 L165.7,217.0 L170.5,208.3 L175.3,220.1 L180.1,214.3 L184.9,189.5 L189.7,216.2 L194.5,217.1 L199.3,212.8 L204.1,212.2 L209.0,215.7 L213.8,216.7 L218.6,220.1 L223.4,223.0 L228.2,216.5 L233.0,212.4 L237.8,213.3 L242.6,218.0 L247.4,216.5 L252.2,217.7 L257.0,217.5 L261.8,221.4 L266.6,215.6 L271.4,216.2 L276.2,216.9 L281.0,216.9 L285.8,213.5 L290.6,215.4 L295.4,214.8 L300.2,215.4 L305.0,217.5 L309.8,214.1 L314.6,217.1 L319.4,217.1 L324.3,217.5 L329.1,218.0 L333.9,218.0 L338.7,222.2 L343.5,215.4 L348.3,221.9 L353.1,215.2 L357.9,216.5 L362.7,214.3 L367.5,200.1 L372.3,212.5 L377.1,216.0 L381.9,221.2 L386.7,217.5 L391.5,222.3 L396.3,218.4 L401.1,217.5 L405.9,217.8 L410.7,222.5 L415.5,216.7 L420.3,218.2 L425.1,185.0 L429.9,217.5 L434.8,215.9 L439.6,216.9 L444.4,222.1 L449.2,218.4 L454.0,220.4 L458.8,207.3 L463.6,219.1 L468.4,218.6 L473.2,216.2 L478.0,220.1 L482.8,215.2 L487.6,214.3 L492.4,214.9 L497.2,218.4 L502.0,212.8 L506.8,213.0 L511.6,220.3 L516.4,219.7 L521.2,215.7 L526.0,221.4 L530.8,210.4 L535.6,218.8 L540.4,221.9 L545.2,222.8 L550.1,217.1 L554.9,220.3 L559.7,219.9 L564.5,204.0 L569.3,216.9 L574.1,219.9 L578.9,223.2 L583.7,215.9 L588.5,219.3 L593.3,212.8 L598.1,218.6 L602.9,215.2 L607.7,218.0 L612.5,210.7 L617.3,216.5 L622.1,212.2 L626.9,64.1 L631.7,218.6 L636.5,208.9 L641.3,218.6 L646.1,214.6 L650.9,213.3 L655.7,219.5 L660.6,213.5 L665.4,214.1 L670.2,215.6 L675.0,220.9 L679.8,218.2 L684.6,218.3 L689.4,218.4 L694.2,222.5 L699.0,217.5 L703.8,215.2 L708.6,221.9 L713.4,215.4 L718.2,222.5 L723.0,218.2 L727.8,208.6 L732.6,224.0 L737.4,222.5 L742.2,217.1 L747.0,219.1 L751.8,220.6 L756.6,221.7 L761.4,218.0 L766.2,218.2 L771.0,212.5 L775.9,219.9 L780.7,215.4 L785.5,214.6 L790.3,213.7 L795.1,218.4 L799.9,221.7 L804.7,223.5 L809.5,220.1 L814.3,223.2 L819.1,218.8 L823.9,222.5 L828.7,222.1 L833.5,222.3 L838.3,219.1 L843.1,220.8 L847.9,193.1 L852.7,223.4 L857.5,216.0 L862.3,220.4 L867.1,221.2 L871.9,219.7 L876.7,216.9 L881.5,217.8 L886.3,219.1 L891.2,220.9 L896.0,222.1 L900.8,221.9 L905.6,224.0 L910.4,219.5 L915.2,217.8 L920.0,219.5 L924.8,215.4 L929.6,221.2 L934.4,218.9 L939.2,218.8 L944.0,219.6" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="36" y="250" font-size="12" fill="#64748b">start</text>
+      <text x="916" y="250" font-size="12" fill="#64748b">end</text>
+    </svg></div>
+      <p class="muted">Đường biểu diễn mean response time theo các interval mà Artillery ghi nhận.</p>
+    </section>
+
+    <section class="section card">
+      <h2>Aggregate Metrics</h2>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>Total requests</td><td><strong>1180</strong></td><td>Tổng số HTTP requests gửi đi</td></tr>
+<tr><td>HTTP 200 responses</td><td><strong>1180</strong></td><td>Số response thành công mã 200</td></tr>
+<tr><td>Failed virtual users</td><td><strong>0</strong></td><td>Số virtual users bị lỗi</td></tr>
+<tr><td>Completed virtual users</td><td><strong>1180</strong></td><td>Số virtual users hoàn tất</td></tr>
+<tr><td>Success rate</td><td><strong>100.00%</strong></td><td>Tỷ lệ HTTP 200 trên tổng requests</td></tr>
+<tr><td>Mean response time</td><td><strong>476.5 ms</strong></td><td>Thời gian phản hồi trung bình</td></tr>
+<tr><td>Median / p50</td><td><strong>468.8 ms</strong></td><td>50% request phản hồi nhanh hơn ngưỡng này</td></tr>
+<tr><td>p95</td><td><strong>487.9 ms</strong></td><td>95% request phản hồi nhanh hơn ngưỡng này</td></tr>
+<tr><td>p99</td><td><strong>550.1 ms</strong></td><td>99% request phản hồi nhanh hơn ngưỡng này</td></tr>
+<tr><td>Min / Max</td><td><strong>456 / 1107 ms</strong></td><td>Khoảng dao động response time</td></tr>
+<tr><td>Downloaded bytes</td><td><strong>96760</strong></td><td>Tổng bytes tải về</td></tr>
+<tr><td>Duration</td><td><strong>3780.0 s</strong></td><td>Thời lượng đo theo metric timestamps</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="section card">
+      <h2>Sample Period Metrics</h2>
+      <table>
+        <thead><tr><th>#</th><th>Time</th><th>Requests</th><th>HTTP 200</th><th>Failed</th><th>Mean RT ms</th><th>p95 ms</th></tr></thead>
+        <tbody><tr><td>1</td><td>04:54:30</td><td>9</td><td>8</td><td>0</td><td>538.1</td><td>518.1</td></tr>
+<tr><td>2</td><td>04:54:40</td><td>10</td><td>10</td><td>0</td><td>476.3</td><td>478.3</td></tr>
+<tr><td>3</td><td>04:54:50</td><td>10</td><td>10</td><td>0</td><td>478.3</td><td>478.3</td></tr>
+<tr><td>4</td><td>04:55:00</td><td>10</td><td>10</td><td>0</td><td>475.2</td><td>478.3</td></tr>
+<tr><td>5</td><td>04:55:10</td><td>10</td><td>10</td><td>0</td><td>477.8</td><td>478.3</td></tr>
+<tr><td>6</td><td>04:55:20</td><td>10</td><td>10</td><td>0</td><td>477</td><td>487.9</td></tr>
+<tr><td>7</td><td>04:55:30</td><td>10</td><td>10</td><td>0</td><td>477</td><td>478.3</td></tr>
+<tr><td>8</td><td>04:55:40</td><td>10</td><td>10</td><td>0</td><td>476.8</td><td>487.9</td></tr>
+<tr><td>9</td><td>04:55:50</td><td>10</td><td>10</td><td>0</td><td>484.6</td><td>487.9</td></tr>
+<tr><td>10</td><td>04:56:00</td><td>10</td><td>10</td><td>0</td><td>470.6</td><td>478.3</td></tr>
+<tr><td colspan="7" class="muted center">…</td></tr>
+<tr><td>370</td><td>05:56:00</td><td>3</td><td>2</td><td>0</td><td>464.5</td><td>459.5</td></tr>
+<tr><td>371</td><td>05:56:10</td><td>2</td><td>3</td><td>0</td><td>477</td><td>478.3</td></tr>
+<tr><td>372</td><td>05:56:20</td><td>3</td><td>3</td><td>0</td><td>476.3</td><td>468.8</td></tr>
+<tr><td>373</td><td>05:56:30</td><td>10</td><td>9</td><td>0</td><td>468</td><td>468.8</td></tr>
+<tr><td>374</td><td>05:56:40</td><td>10</td><td>10</td><td>0</td><td>471.4</td><td>478.3</td></tr>
+<tr><td>375</td><td>05:56:50</td><td>10</td><td>10</td><td>0</td><td>471.6</td><td>478.3</td></tr>
+<tr><td>376</td><td>05:57:00</td><td>10</td><td>10</td><td>0</td><td>470.9</td><td>478.3</td></tr>
+<tr><td>377</td><td>05:57:10</td><td>10</td><td>10</td><td>0</td><td>471.8</td><td>478.3</td></tr>
+<tr><td>378</td><td>05:57:20</td><td>10</td><td>10</td><td>0</td><td>467.5</td><td>468.8</td></tr>
+<tr><td>379</td><td>05:57:30</td><td>1</td><td>2</td><td>0</td><td>470.5</td><td>468.8</td></tr></tbody>
+      </table>
+      <p class="muted">Bảng chỉ hiển thị 10 interval đầu và 10 interval cuối để báo cáo gọn. Dữ liệu đầy đủ vẫn nằm trong file JSON gốc.</p>
+    </section>
+
+    <footer>Generated from g1-512-1000-r1-artillery.json · Artillery JSON → HTML report</footer>
+  </main>
+</body>
+</html>

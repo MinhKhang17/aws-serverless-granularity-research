@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artillery Load Test Report - G1 128MB 1000 r1</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5d6b82;
+      --line: #e5eaf2;
+      --ok: #1b8f5a;
+      --warn: #c78314;
+      --bad: #b42318;
+      --blue: #2558d4;
+      --shadow: 0 10px 28px rgba(20, 32, 55, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      padding: 34px 42px;
+      background: linear-gradient(135deg, #15223b, #294b8f);
+      color: white;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+    header p {
+      margin: 0;
+      opacity: 0.86;
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .kpi-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+    }
+    .kpi-sub {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pass {
+      color: var(--ok);
+    }
+    .review {
+      color: var(--warn);
+    }
+    section {
+      margin-top: 20px;
+    }
+    section h2 {
+      margin: 0 0 14px;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th {
+      color: #25344f;
+      background: #f1f4f9;
+      font-weight: 700;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 150px;
+      gap: 12px;
+      align-items: center;
+      margin: 14px 0;
+    }
+    .bar-label {
+      font-weight: 700;
+    }
+    .bar-track {
+      background: #edf1f7;
+      border-radius: 999px;
+      height: 14px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+    .bar-fill.ok { background: var(--ok); }
+    .bar-fill.redirect { background: var(--blue); }
+    .bar-fill.warn { background: var(--warn); }
+    .bar-fill.bad { background: var(--bad); }
+    .bar-value {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+    .note {
+      background: #fff8e6;
+      border: 1px solid #f3d78a;
+      color: #624600;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+    .oknote {
+      background: #ecfdf3;
+      border: 1px solid #a7f3c5;
+      color: #065f46;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+    pre {
+      white-space: pre-wrap;
+      margin: 0;
+      font-size: 12px;
+    }
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 28px;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      header { padding: 26px 20px; }
+      .grid { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 48px 1fr; }
+      .bar-value { grid-column: 2; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Artillery Load Test Report</h1>
+    <p>Configuration: <strong>G1 · 128MB · 1000 per hour · Run 1</strong></p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <div class="card">
+        <div class="kpi-label">Verdict</div>
+        <div class="kpi-value pass">PASS</div>
+        <div class="kpi-sub">Based on HTTP success, errors, and failed VUs.</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Success Rate</div>
+        <div class="kpi-value">100.00%</div>
+        <div class="kpi-sub">1,180 successful 2xx responses / 1,180 requests</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Mean Response Time</div>
+        <div class="kpi-value">475.6 ms</div>
+        <div class="kpi-sub">Client-side HTTP response time</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">p95 Response Time</div>
+        <div class="kpi-value">487.9 ms</div>
+        <div class="kpi-sub">95th percentile latency</div>
+      </div>
+    </div>
+
+    <section class="card">
+      <h2>Executive Summary</h2>
+      <table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Input file</td><td>g1-128-1000-r1-artillery.json</td></tr>
+        <tr><td>Start time</td><td>2026-07-01 10:20:08 UTC+07</td></tr>
+        <tr><td>End time</td><td>2026-07-01 11:23:08 UTC+07</td></tr>
+        <tr><td>Observed duration</td><td>63.00 minutes</td></tr>
+        <tr><td>Total requests</td><td>1,180</td></tr>
+        <tr><td>Total responses</td><td>1,180</td></tr>
+        <tr><td>HTTP 2xx</td><td>1,180</td></tr>
+        <tr><td>HTTP 4xx / 5xx</td><td>0 / 0</td></tr>
+        <tr><td>Virtual users failed</td><td>0</td></tr>
+        <tr><td>Artillery error counters</td><td>0</td></tr>
+      </table>
+      <div class='oknote'>This run is suitable as a successful load-test dataset for the G1 128MB configuration. It records 100% HTTP 200 responses and no failed virtual users.</div>
+    </section>
+
+    <section class="two-col">
+      <div class="card">
+        <h2>HTTP Status Distribution</h2>
+        
+    <div class="bar-row">
+      <div class="bar-label">2xx</div>
+      <div class="bar-track"><div class="bar-fill ok" style="width:100.00%"></div></div>
+      <div class="bar-value">1,180 (100.00%)</div>
+    </div>
+    
+    <div class="bar-row">
+      <div class="bar-label">3xx</div>
+      <div class="bar-track"><div class="bar-fill redirect" style="width:0.00%"></div></div>
+      <div class="bar-value">0 (0.00%)</div>
+    </div>
+    
+    <div class="bar-row">
+      <div class="bar-label">4xx</div>
+      <div class="bar-track"><div class="bar-fill warn" style="width:0.00%"></div></div>
+      <div class="bar-value">0 (0.00%)</div>
+    </div>
+    
+    <div class="bar-row">
+      <div class="bar-label">5xx</div>
+      <div class="bar-track"><div class="bar-fill bad" style="width:0.00%"></div></div>
+      <div class="bar-value">0 (0.00%)</div>
+    </div>
+    
+      </div>
+
+      <div class="card">
+        <h2>Response Time Percentiles</h2>
+        <table>
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Min</td><td>455.0 ms</td></tr>
+<tr><td>Mean</td><td>475.6 ms</td></tr>
+<tr><td>Median / p50</td><td>478.3 ms</td></tr>
+<tr><td>p75</td><td>478.3 ms</td></tr>
+<tr><td>p90</td><td>487.9 ms</td></tr>
+<tr><td>p95</td><td>487.9 ms</td></tr>
+<tr><td>p99</td><td>518.1 ms</td></tr>
+<tr><td>p999</td><td>645.6 ms</td></tr>
+<tr><td>Max</td><td>858.0 ms</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div class="card">
+        <h2>Core Counters</h2>
+        <table>
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Total HTTP requests</td><td>1,180</td></tr>
+<tr><td>Total HTTP responses</td><td>1,180</td></tr>
+<tr><td>HTTP 2xx responses</td><td>1,180</td></tr>
+<tr><td>HTTP 3xx responses</td><td>0</td></tr>
+<tr><td>HTTP 4xx responses</td><td>0</td></tr>
+<tr><td>HTTP 5xx responses</td><td>0</td></tr>
+<tr><td>Virtual users created</td><td>1,180</td></tr>
+<tr><td>Virtual users completed</td><td>1,180</td></tr>
+<tr><td>Virtual users failed</td><td>0</td></tr>
+<tr><td>Artillery errors</td><td>0</td></tr>
+<tr><td>Downloaded bytes</td><td>96,760</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>HTTP Codes</h2>
+        <table>
+          <tr><th>Status code</th><th>Count</th><th>Share</th></tr>
+          <tr><td>200</td><td>1,180</td><td>100.00%</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div class="card">
+        <h2>Artillery Errors</h2>
+        <table>
+          <tr><th>Error Counter</th><th>Count</th></tr>
+          <tr><td>No Artillery error counters</td><td>0</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Virtual User Session Length</h2>
+        <table>
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Min</td><td>937.8 ms</td></tr>
+          <tr><td>Mean</td><td>1,006.4 ms</td></tr>
+          <tr><td>p50</td><td>982.6 ms</td></tr>
+          <tr><td>p95</td><td>1,224.4 ms</td></tr>
+          <tr><td>p99</td><td>1,274.3 ms</td></tr>
+          <tr><td>Max</td><td>1,445.7 ms</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Endpoint-Specific Metrics</h2>
+      <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>plugins.metrics-by-endpoint./g1/order.codes.200</td><td>1,180</td></tr>
+<tr><td>plugins.metrics-by-endpoint.response_time./g1/order</td><td><pre>{
+  &quot;min&quot;: 455,
+  &quot;max&quot;: 858,
+  &quot;count&quot;: 1180,
+  &quot;mean&quot;: 475.6,
+  &quot;p50&quot;: 478.3,
+  &quot;median&quot;: 478.3,
+  &quot;p75&quot;: 478.3,
+  &quot;p90&quot;: 487.9,
+  &quot;p95&quot;: 487.9,
+  &quot;p99&quot;: 518.1,
+  &quot;p999&quot;: 645.6
+}</pre></td></tr>
+
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Intermediate Metrics Sample</h2>
+      <p style="color: var(--muted); margin-top: -6px;">First 20 intermediate periods from the Artillery JSON output.</p>
+      <table>
+        <tr><th>Period</th><th>Requests</th><th>2xx Success</th><th>Failed VUs</th><th>Mean Response Time</th></tr>
+        <tr><td>1782876000000</td><td>2</td><td>1</td><td>0</td><td>858.0 ms</td></tr>
+<tr><td>1782876010000</td><td>10</td><td>10</td><td>0</td><td>498.8 ms</td></tr>
+<tr><td>1782876020000</td><td>10</td><td>10</td><td>0</td><td>480.8 ms</td></tr>
+<tr><td>1782876030000</td><td>10</td><td>10</td><td>0</td><td>507.8 ms</td></tr>
+<tr><td>1782876040000</td><td>10</td><td>10</td><td>0</td><td>478.6 ms</td></tr>
+<tr><td>1782876050000</td><td>10</td><td>10</td><td>0</td><td>477.7 ms</td></tr>
+<tr><td>1782876060000</td><td>10</td><td>10</td><td>0</td><td>479.5 ms</td></tr>
+<tr><td>1782876070000</td><td>10</td><td>10</td><td>0</td><td>479.3 ms</td></tr>
+<tr><td>1782876080000</td><td>10</td><td>10</td><td>0</td><td>479.4 ms</td></tr>
+<tr><td>1782876090000</td><td>10</td><td>10</td><td>0</td><td>480.6 ms</td></tr>
+<tr><td>1782876100000</td><td>10</td><td>10</td><td>0</td><td>486.3 ms</td></tr>
+<tr><td>1782876110000</td><td>10</td><td>10</td><td>0</td><td>481.1 ms</td></tr>
+<tr><td>1782876120000</td><td>8</td><td>9</td><td>0</td><td>479.9 ms</td></tr>
+<tr><td>1782876130000</td><td>3</td><td>3</td><td>0</td><td>477.7 ms</td></tr>
+<tr><td>1782876140000</td><td>3</td><td>3</td><td>0</td><td>479.7 ms</td></tr>
+<tr><td>1782876150000</td><td>3</td><td>2</td><td>0</td><td>475.0 ms</td></tr>
+<tr><td>1782876160000</td><td>2</td><td>3</td><td>0</td><td>472.3 ms</td></tr>
+<tr><td>1782876170000</td><td>3</td><td>3</td><td>0</td><td>477.7 ms</td></tr>
+<tr><td>1782876180000</td><td>3</td><td>3</td><td>0</td><td>480.3 ms</td></tr>
+<tr><td>1782876190000</td><td>3</td><td>2</td><td>0</td><td>472.5 ms</td></tr>
+      </table>
+    </section>
+
+    <footer>
+      Generated from Artillery JSON for AWS serverless granularity experiment.
+    </footer>
+  </main>
+</body>
+</html>
