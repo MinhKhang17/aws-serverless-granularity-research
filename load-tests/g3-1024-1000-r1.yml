@@ -1,0 +1,40 @@
+config:
+  target: "https://o9bh3i8hrg.execute-api.us-east-1.amazonaws.com"
+  phases:
+    - duration: 120
+      arrivalRate: 1
+      name: "warm-up"
+
+    - duration: 3600
+      arrivalCount: 1000
+      name: "measurement - exactly 1000 arrivals per hour"
+
+    - duration: 60
+      arrivalRate: 1
+      name: "cool-down"
+
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "G3 1024MB 1000 per hour"
+    flow:
+      - post:
+          url: "/g3/order/1024"
+          json:
+            business_request_id: "br-{{ $uuid }}"
+            trace_id: "tr-{{ $uuid }}"
+            experiment_id: "EXP-G3-1024-1000-R1"
+            orderId: "order-{{ $uuid }}"
+            customerId: "customer-g3-test"
+            amount: 199000
+            items:
+              - productId: "p001"
+                sku: "item-001"
+                price: 100000
+                quantity: 2
+              - productId: "p002"
+                sku: "item-002"
+                price: 50000
+                quantity: 1

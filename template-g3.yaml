@@ -1,0 +1,213 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Granularity Research - G3 Fine-Grained Functions
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 10
+    Architectures:
+      - arm64
+    Tracing: Active
+    Environment:
+      Variables:
+        GRANULARITY_LEVEL: G3
+        INVOCATION_RATE_PER_HOUR: "0"
+
+Resources:
+  OrderG3ValidateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-validate
+      CodeUri: services/
+      Handler: g3-validate/handler.handler
+      MemorySize: 128
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        Service: validate
+
+  OrderG3PricingFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-pricing
+      CodeUri: services/
+      Handler: g3-pricing/handler.handler
+      MemorySize: 128
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        Service: pricing
+
+  OrderG3InventoryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-inventory
+      CodeUri: services/
+      Handler: g3-inventory/handler.handler
+      MemorySize: 128
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        Service: inventory
+
+  OrderG3PaymentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-payment
+      CodeUri: services/
+      Handler: g3-payment/handler.handler
+      MemorySize: 128
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        Service: payment
+
+  OrderG3PersistFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-persist
+      CodeUri: services/
+      Handler: g3-persist/handler.handler
+      MemorySize: 128
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        Service: persist
+
+  OrderG3NotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-notification
+      CodeUri: services/
+      Handler: g3-notification/handler.handler
+      MemorySize: 128
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        Service: notification
+
+  OrderG3Orchestrator128:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-orchestrator-128
+      CodeUri: services/
+      Handler: g3-orchestrator/handler.handler
+      MemorySize: 128
+      Policies:
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-validate
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-pricing
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-persist
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-notification
+      Environment:
+        Variables:
+          MEMORY_CONFIG: "128"
+          VALIDATE_FUNCTION: research-order-g3-validate
+          PRICING_FUNCTION: research-order-g3-pricing
+          INVENTORY_FUNCTION: research-order-g3-inventory
+          PAYMENT_FUNCTION: research-order-g3-payment
+          PERSIST_FUNCTION: research-order-g3-persist
+          NOTIFICATION_FUNCTION: research-order-g3-notification
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g3/order/128
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        MemoryConfig: "128"
+
+  OrderG3Orchestrator512:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-orchestrator-512
+      CodeUri: services/
+      Handler: g3-orchestrator/handler.handler
+      MemorySize: 512
+      Policies:
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-validate
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-pricing
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-persist
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-notification
+      Environment:
+        Variables:
+          MEMORY_CONFIG: "512"
+          VALIDATE_FUNCTION: research-order-g3-validate
+          PRICING_FUNCTION: research-order-g3-pricing
+          INVENTORY_FUNCTION: research-order-g3-inventory
+          PAYMENT_FUNCTION: research-order-g3-payment
+          PERSIST_FUNCTION: research-order-g3-persist
+          NOTIFICATION_FUNCTION: research-order-g3-notification
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g3/order/512
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        MemoryConfig: "512"
+
+  OrderG3Orchestrator1024:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: research-order-g3-orchestrator-1024
+      CodeUri: services/
+      Handler: g3-orchestrator/handler.handler
+      MemorySize: 1024
+      Policies:
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-validate
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-pricing
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-persist
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g3-notification
+      Environment:
+        Variables:
+          MEMORY_CONFIG: "1024"
+          VALIDATE_FUNCTION: research-order-g3-validate
+          PRICING_FUNCTION: research-order-g3-pricing
+          INVENTORY_FUNCTION: research-order-g3-inventory
+          PAYMENT_FUNCTION: research-order-g3-payment
+          PERSIST_FUNCTION: research-order-g3-persist
+          NOTIFICATION_FUNCTION: research-order-g3-notification
+      Events:
+        OrderApi:
+          Type: HttpApi
+          Properties:
+            Path: /g3/order/1024
+            Method: POST
+      Tags:
+        Project: serverless-granularity-research
+        GranularityLevel: G3
+        MemoryConfig: "1024"
+
+Outputs:
+  G3ApiEndpoint:
+    Description: API Gateway endpoint URL for G3
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"

@@ -1,0 +1,2 @@
+granularity,memorySize,@log,invocations,avgDurationMs,minDurationMs,maxDurationMs,p50DurationMs,p90DurationMs,p95DurationMs,p99DurationMs,avgBilledDurationMs,totalBilledDurationMs,avgMaxMemoryUsedMB,peakMemoryUsedMB,coldStarts,coldStartRatePercent,avgInitDurationMs
+g1,1024,390403896473:/aws/lambda/research-order-g1-1024,1179,208.1957,205.97,218.26,208.1651,208.5816,208.7902,209.4172,208.8465,246230,76.8931,79,,,

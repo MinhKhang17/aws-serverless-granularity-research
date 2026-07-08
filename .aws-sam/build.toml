@@ -7,6 +7,6 @@ architecture = "arm64"
 handler = "g1-monolithic/handler.handler"
 manifest_hash = ""
 packagetype = "Zip"
-functions = ["OrderG1Function128", "OrderG1Function512", "OrderG1Function1024", "OrderG2InventoryFunction128", "OrderG2PaymentFunction128", "OrderG2NotificationFunction128", "OrderG2OrchestratorFunction128", "OrderG2InventoryFunction512", "OrderG2PaymentFunction512", "OrderG2NotificationFunction512", "OrderG2OrchestratorFunction512", "OrderG2InventoryFunction1024", "OrderG2PaymentFunction1024", "OrderG2NotificationFunction1024", "OrderG2OrchestratorFunction1024"]
+functions = ["G4ValidateRequestFunction", "G4ValidateCustomerFunction", "G4NormalizeItemsFunction", "G4PriceItemsFunction", "G4CalculateDiscountFunction", "G4CalculateTaxFunction", "G4CheckInventoryFunction", "G4ReserveInventoryFunction", "G4AuthorizePaymentFunction", "G4CapturePaymentFunction", "G4PersistOrderFunction", "G4SendNotificationFunction", "G4Orchestrator128", "G4Orchestrator512", "G4Orchestrator1024"]
 
 [layer_build_definitions]

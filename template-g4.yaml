@@ -1,23 +1,25 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: AWS Serverless Granularity Research - G4 Ultra Fine-Grained Functions
+
 Globals:
   Function:
     Runtime: nodejs20.x
     Timeout: 15
     Architectures:
-    - arm64
+      - arm64
     Tracing: Active
     Environment:
       Variables:
         GRANULARITY_LEVEL: G4
-        INVOCATION_RATE_PER_HOUR: '1000'
+        INVOCATION_RATE_PER_HOUR: "1000"
+
 Resources:
   G4ValidateRequestFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-validate-request
-      CodeUri: G4ValidateRequestFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -27,13 +29,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: validate-request
-    Metadata:
-      SamResourceId: G4ValidateRequestFunction
+
   G4ValidateCustomerFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-validate-customer
-      CodeUri: G4ValidateCustomerFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -43,13 +44,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: validate-customer
-    Metadata:
-      SamResourceId: G4ValidateCustomerFunction
+
   G4NormalizeItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-normalize-items
-      CodeUri: G4NormalizeItemsFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -59,13 +59,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: normalize-items
-    Metadata:
-      SamResourceId: G4NormalizeItemsFunction
+
   G4PriceItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-price-items
-      CodeUri: G4PriceItemsFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -75,13 +74,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: price-items
-    Metadata:
-      SamResourceId: G4PriceItemsFunction
+
   G4CalculateDiscountFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-calculate-discount
-      CodeUri: G4CalculateDiscountFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -91,13 +89,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: calculate-discount
-    Metadata:
-      SamResourceId: G4CalculateDiscountFunction
+
   G4CalculateTaxFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-calculate-tax
-      CodeUri: G4CalculateTaxFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -107,13 +104,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: calculate-tax
-    Metadata:
-      SamResourceId: G4CalculateTaxFunction
+
   G4CheckInventoryFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-check-inventory
-      CodeUri: G4CheckInventoryFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -123,13 +119,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: check-inventory
-    Metadata:
-      SamResourceId: G4CheckInventoryFunction
+
   G4ReserveInventoryFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-reserve-inventory
-      CodeUri: G4ReserveInventoryFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -139,13 +134,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: reserve-inventory
-    Metadata:
-      SamResourceId: G4ReserveInventoryFunction
+
   G4AuthorizePaymentFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-authorize-payment
-      CodeUri: G4AuthorizePaymentFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -155,13 +149,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: authorize-payment
-    Metadata:
-      SamResourceId: G4AuthorizePaymentFunction
+
   G4CapturePaymentFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-capture-payment
-      CodeUri: G4CapturePaymentFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -171,13 +164,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: capture-payment
-    Metadata:
-      SamResourceId: G4CapturePaymentFunction
+
   G4PersistOrderFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-persist-order
-      CodeUri: G4PersistOrderFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -187,13 +179,12 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: persist-order
-    Metadata:
-      SamResourceId: G4PersistOrderFunction
+
   G4SendNotificationFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-send-notification
-      CodeUri: G4SendNotificationFunction
+      CodeUri: services/
       Handler: g4-step/handler.handler
       MemorySize: 128
       Environment:
@@ -203,43 +194,42 @@ Resources:
         Project: serverless-granularity-research
         GranularityLevel: G4
         Service: send-notification
-    Metadata:
-      SamResourceId: G4SendNotificationFunction
+
   G4Orchestrator128:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-orchestrator-128
-      CodeUri: G4Orchestrator128
+      CodeUri: services/
       Handler: g4-orchestrator/handler.handler
       MemorySize: 128
       Policies:
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-validate-request
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-validate-customer
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-normalize-items
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-price-items
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-calculate-discount
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-calculate-tax
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-check-inventory
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-reserve-inventory
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-authorize-payment
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-capture-payment
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-persist-order
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-send-notification
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-validate-request
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-validate-customer
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-normalize-items
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-price-items
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-calculate-discount
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-calculate-tax
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-check-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-reserve-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-authorize-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-capture-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-persist-order
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-send-notification
       Environment:
         Variables:
-          MEMORY_CONFIG: '128'
+          MEMORY_CONFIG: "128"
           VALIDATE_REQUEST_FUNCTION: research-order-g4-validate-request
           VALIDATE_CUSTOMER_FUNCTION: research-order-g4-validate-customer
           NORMALIZE_ITEMS_FUNCTION: research-order-g4-normalize-items
@@ -261,44 +251,43 @@ Resources:
       Tags:
         Project: serverless-granularity-research
         GranularityLevel: G4
-        MemoryConfig: '128'
-    Metadata:
-      SamResourceId: G4Orchestrator128
+        MemoryConfig: "128"
+
   G4Orchestrator512:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-orchestrator-512
-      CodeUri: G4Orchestrator512
+      CodeUri: services/
       Handler: g4-orchestrator/handler.handler
       MemorySize: 512
       Policies:
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-validate-request
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-validate-customer
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-normalize-items
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-price-items
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-calculate-discount
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-calculate-tax
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-check-inventory
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-reserve-inventory
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-authorize-payment
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-capture-payment
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-persist-order
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-send-notification
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-validate-request
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-validate-customer
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-normalize-items
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-price-items
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-calculate-discount
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-calculate-tax
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-check-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-reserve-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-authorize-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-capture-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-persist-order
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-send-notification
       Environment:
         Variables:
-          MEMORY_CONFIG: '512'
+          MEMORY_CONFIG: "512"
           VALIDATE_REQUEST_FUNCTION: research-order-g4-validate-request
           VALIDATE_CUSTOMER_FUNCTION: research-order-g4-validate-customer
           NORMALIZE_ITEMS_FUNCTION: research-order-g4-normalize-items
@@ -320,44 +309,43 @@ Resources:
       Tags:
         Project: serverless-granularity-research
         GranularityLevel: G4
-        MemoryConfig: '512'
-    Metadata:
-      SamResourceId: G4Orchestrator512
+        MemoryConfig: "512"
+
   G4Orchestrator1024:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: research-order-g4-orchestrator-1024
-      CodeUri: G4Orchestrator1024
+      CodeUri: services/
       Handler: g4-orchestrator/handler.handler
       MemorySize: 1024
       Policies:
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-validate-request
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-validate-customer
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-normalize-items
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-price-items
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-calculate-discount
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-calculate-tax
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-check-inventory
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-reserve-inventory
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-authorize-payment
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-capture-payment
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-persist-order
-      - LambdaInvokePolicy:
-          FunctionName: research-order-g4-send-notification
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-validate-request
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-validate-customer
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-normalize-items
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-price-items
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-calculate-discount
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-calculate-tax
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-check-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-reserve-inventory
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-authorize-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-capture-payment
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-persist-order
+        - LambdaInvokePolicy:
+            FunctionName: research-order-g4-send-notification
       Environment:
         Variables:
-          MEMORY_CONFIG: '1024'
+          MEMORY_CONFIG: "1024"
           VALIDATE_REQUEST_FUNCTION: research-order-g4-validate-request
           VALIDATE_CUSTOMER_FUNCTION: research-order-g4-validate-customer
           NORMALIZE_ITEMS_FUNCTION: research-order-g4-normalize-items
@@ -379,11 +367,9 @@ Resources:
       Tags:
         Project: serverless-granularity-research
         GranularityLevel: G4
-        MemoryConfig: '1024'
-    Metadata:
-      SamResourceId: G4Orchestrator1024
+        MemoryConfig: "1024"
+
 Outputs:
   G4ApiEndpoint:
     Description: API Gateway endpoint URL for G4
-    Value:
-      Fn::Sub: https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"

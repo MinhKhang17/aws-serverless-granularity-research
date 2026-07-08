@@ -1,0 +1,4 @@
+- G3-1024 success rate = 99.92% (1179/1180).
+- CloudWatch/G1 summary file contains only research-order-g1-1024; G1-128 and G1-512 Lambda metrics were reconstructed from detailed per-request CloudWatch CSV files in RunTestFromClient.
+- G3/G4 child Lambda functions are not memory-suffixed in CloudWatch; cost model treats them as 128 MB child functions shared across orchestrator memory variants, while orchestrator memory varies by scenario.
+- Marginal cost estimates exclude AWS Free Tier and data transfer; they use Lambda Arm duration pricing, Lambda request pricing, and HTTP API request pricing.
